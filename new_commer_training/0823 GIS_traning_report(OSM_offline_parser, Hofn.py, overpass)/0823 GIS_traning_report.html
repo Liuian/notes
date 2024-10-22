@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>0823 GIS_traning_report.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="osmofflineparser">osm_offline_parser</h1>
+<h2 id="%E7%9B%AE%E9%8C%84">目錄</h2>
+<ul>
+<li><a href="#osm_offline_parserpy">osm_offline_parser.py</a>
+<ul>
+<li><a href="#1-read-config">1. READ CONFIG</a></li>
+<li><a href="#2-program-arguments">2. PROGRAM ARGUMENTS</a></li>
+<li><a href="#3-loading-program-arguments">3. Loading program arguments</a></li>
+<li><a href="#4-log-file-setting--log-info">4. Log file setting &amp; Log info</a></li>
+<li><a href="#5-data-cutting">5. Data Cutting</a></li>
+<li><a href="#6-entries">6. Entries</a>
+<ul>
+<li><a href="#%E7%92%B0%E7%8B%80%E6%A8%A1%E5%BC%8F-rings_mode">環狀模式 (rings_mode)</a></li>
+<li><a href="#%E7%B7%9A%E7%8B%80%E6%A8%A1%E5%BC%8F-lines_mode">線狀模式 (lines_mode)</a></li>
+<li><a href="#%E5%BB%BA%E7%AF%89%E6%A8%A1%E5%BC%8F-building_mode">建築模式 (building_mode)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E7%B7%9A%E7%8B%80%E6%A8%A1%E5%BC%8F%E8%99%95%E7%90%86%E6%B5%81%E7%A8%8B-linespy">線狀模式處理流程 (lines.py)</a>
+<ul>
+<li><a href="#is_normal_process">is_normal_process</a>
+<ul>
+<li><a href="#%E8%B3%87%E6%96%99%E7%8D%B2%E5%8F%96">資料獲取</a></li>
+<li><a href="#%E7%B7%9A%E6%AE%B5%E5%90%88%E4%BD%B5">線段合併</a>
+<ul>
+<li><a href="#%E7%B7%9A%E6%AE%B5%E5%90%88%E4%BD%B5%E7%9A%84%E6%96%B9%E6%B3%95">線段合併的方法</a></li>
+</ul>
+</li>
+<li><a href="#%E7%89%B9%E6%AE%8A%E8%99%95%E7%90%86">特殊處理</a></li>
+</ul>
+</li>
+<li><a href="#is_divide_process">is_divide_process</a>
+<ul>
+<li><a href="#1-%E5%87%BD%E6%95%B8%E8%AA%AA%E6%98%8E-process_divide_and_merge">1. 函數說明: <code>process_divide_and_merge</code></a></li>
+<li><a href="#%E7%9B%AE%E7%9A%84">1.1 目的</a></li>
+<li><a href="#%E5%8F%83%E6%95%B8">1.2 參數</a></li>
+<li><a href="#%E8%99%95%E7%90%86%E6%B5%81%E7%A8%8B">1.3 處理流程</a>
+<ul>
+<li><a href="#%E5%88%9D%E5%A7%8B%E5%8C%96">1.3.1 初始化</a></li>
+<li><a href="#%E8%AE%80%E5%8F%96%E8%B3%87%E6%96%99">1.3.2 讀取資料</a></li>
+<li><a href="#%E8%99%95%E7%90%86%E5%88%86%E5%89%B2">1.3.3 處理分割</a></li>
+<li><a href="#%E6%9B%B4%E6%96%B0%E5%90%88%E4%BD%B5%E8%B3%87%E6%96%99">1.3.4 更新合併資料</a></li>
+<li><a href="#%E8%BC%B8%E5%87%BA%E7%B5%90%E6%9E%9C">1.3.5 輸出結果</a></li>
+<li><a href="#%E9%87%8D%E8%A6%81%E5%87%BD%E6%95%B8">1.4 重要函數</a></li>
+</ul>
+</li>
+<li><a href="#is_post_process">is_post_process</a>
+<ul>
+<li><a href="#%E5%BE%8C%E8%99%95%E7%90%86%E6%B5%81%E7%A8%8B">後處理流程</a></li>
+<li><a href="#%E8%BC%B8%E5%87%BA">輸出</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="osmofflineparserpy">osm_offline_parser.py</h2>
+<h3 id="1-read-config">1. READ CONFIG</h3>
+<ul>
+<li>讀取配置文件，設置相關參數。</li>
+</ul>
+<h3 id="2-program-arguments">2. PROGRAM ARGUMENTS</h3>
+<ul>
+<li>程式參數設置，包括輸入檔案路徑、hofn 類型等。</li>
+</ul>
+<h3 id="3-loading-program-arguments">3. Loading program arguments</h3>
+<ul>
+<li>讀取並處理程式參數:
+<ul>
+<li><strong>input file path</strong>: 輸入檔案路徑。</li>
+<li><strong>hofn type</strong>: 處理的 hofn 類型。</li>
+<li><strong>Get nation by mcc</strong>: 根據 mcc 獲取國家。</li>
+<li><strong>Limit polygon mode</strong>:
+<ul>
+<li>limit_relation_ids: 輸入特定relation id</li>
+<li>use_local_limit_polygon</li>
+</ul>
+</li>
+<li><strong>Divide mode for lines with specified way id</strong>: 海岸線線段分割模式。</li>
+<li><strong>Post processing mode</strong>: 只做後處理模式。</li>
+<li><strong>Output relation geometry</strong></li>
+<li><strong>Grouping tags</strong>: 設置分組標籤。</li>
+<li>使用三個標籤來決定要執行的處理過程:<pre class="hljs"><code><div>is_post_process = <span class="hljs-keyword">not</span> is_process_only_output_relation_geometries
+is_divide_process = only_divide_ids <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> only_post_processing
+is_normal_process = <span class="hljs-keyword">not</span> only_post_processing <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> is_divide_process <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> is_process_only_output_relation_geometries
+</div></code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-log-file-setting--log-info">4. Log file setting &amp; Log info</h3>
+<h3 id="5-data-cutting">5. Data Cutting</h3>
+<ul>
+<li>根據需要僅保留源數據中的特定區域。</li>
+<li>範例：<code>malaysia-singapore-brunei-latest.osm.pbf -&gt; processed.osm.pbf (singapore only)</code></li>
+<li>輸出文件路徑：<code>./osm_offline_parser/data/output/Singapore/limit_polygon/['536780']/processed.osm.pbf</code></li>
+</ul>
+<h3 id="6-entries">6. Entries</h3>
+<ul>
+<li>根據不同的 <code>hofn_type</code> 進入對應模式的處理流程，並根據參數執行對應的數據處理邏輯。</li>
+</ul>
+<h4 id="%E7%92%B0%E7%8B%80%E6%A8%A1%E5%BC%8F-ringsmode">環狀模式 (rings_mode)</h4>
+<p><strong>適用範圍</strong>:</p>
+<ul>
+<li><strong>水域模式 (water)</strong>: HofnType.WATER, <code>hofn_type = 1</code></li>
+<li><strong>島嶼模式 (island)</strong>: HofnType.ISLAND, <code>hofn_type = 5</code></li>
+<li><strong>村落模式 (village)</strong>: HofnType.VILLAGE, <code>hofn_type = 11</code></li>
+</ul>
+<p><strong>處理流程</strong>:</p>
+<ul>
+<li><strong>正常處理 (is_normal_process)</strong></li>
+<li><strong>分割處理 (is_divide_process)</strong></li>
+<li><strong>後處理 (is_post_process)</strong></li>
+</ul>
+<h4 id="%E7%B7%9A%E7%8B%80%E6%A8%A1%E5%BC%8F-linesmode">線狀模式 (lines_mode)</h4>
+<p><strong>適用範圍</strong>:</p>
+<ul>
+<li><strong>海岸線模式 (coastline)</strong>: HofnType.COASTLINE, <code>hofn_type = 2</code></li>
+<li><strong>地下捷運模式 (underground_mrt)</strong>: HofnType.UNDERGROUND_MRT, <code>hofn_type = 3</code></li>
+<li><strong>隧道模式 (tunnel)</strong>: HofnType.TUNNEL, <code>hofn_type = 6</code></li>
+<li><strong>高速公路模式 (highway)</strong>: HofnType.HIGHWAY, <code>hofn_type = 7</code></li>
+<li><strong>航線模式 (ferry)</strong>: HofnType.FERRY, <code>hofn_type = 10</code></li>
+<li><strong>鐵路模式 (railway)</strong>: HofnType.RAILWAY, <code>hofn_type = 14</code></li>
+</ul>
+<p><strong>處理流程</strong>:</p>
+<ul>
+<li><strong>正常處理 (is_normal_process)</strong></li>
+<li><strong>分割處理 (is_divide_process)</strong></li>
+<li><strong>後處理 (is_post_process)</strong></li>
+<li>詳細流程在 <a href="#%E7%B7%9A%E7%8B%80%E6%A8%A1%E5%BC%8F%E8%99%95%E7%90%86%E6%B5%81%E7%A8%8B-linespy">線狀模式處理流程 (lines.py)</a> 中描述。</li>
+</ul>
+<h4 id="%E5%BB%BA%E7%AF%89%E6%A8%A1%E5%BC%8F-buildingmode">建築模式 (building_mode)</h4>
+<p><strong>適用範圍</strong>:</p>
+<ul>
+<li><strong>建築模式 (building)</strong>: HofnType.BUILDING, <code>hofn_type = 9</code></li>
+</ul>
+<p><strong>處理流程</strong>:</p>
+<h2 id="%E7%B7%9A%E7%8B%80%E6%A8%A1%E5%BC%8F%E8%99%95%E7%90%86%E6%B5%81%E7%A8%8B-linespy">線狀模式處理流程 (lines.py)</h2>
+<ul>
+<li><a href="#is_normal_process">is_normal_process</a>
+<ul>
+<li><a href="#%E8%B3%87%E6%96%99%E7%8D%B2%E5%8F%96">資料獲取</a></li>
+<li><a href="#%E7%B7%9A%E6%AE%B5%E5%90%88%E4%BD%B5">線段合併</a>
+<ul>
+<li><a href="#%E7%B7%9A%E6%AE%B5%E5%90%88%E4%BD%B5%E7%9A%84%E6%96%B9%E6%B3%95">線段合併的方法</a></li>
+</ul>
+</li>
+<li><a href="#%E7%89%B9%E6%AE%8A%E8%99%95%E7%90%86">特殊處理</a></li>
+</ul>
+</li>
+<li><a href="#is_divide_process">is_divide_process</a>
+<ul>
+<li><a href="#%E7%9B%AE%E7%9A%84">1.1 目的</a></li>
+<li><a href="#%E5%8F%83%E6%95%B8">1.2 參數</a></li>
+<li><a href="#%E8%99%95%E7%90%86%E6%B5%81%E7%A8%8B">1.3 處理流程</a>
+<ul>
+<li><a href="#%E5%88%9D%E5%A7%8B%E5%8C%96">1.3.1 初始化</a></li>
+<li><a href="#%E8%AE%80%E5%8F%96%E8%B3%87%E6%96%99">1.3.2 讀取資料</a></li>
+<li><a href="#%E8%99%95%E7%90%86%E5%88%86%E5%89%B2">1.3.3 處理分割</a></li>
+<li><a href="#%E6%9B%B4%E6%96%B0%E5%90%88%E4%BD%B5%E8%B3%87%E6%96%99">1.3.4 更新合併資料</a></li>
+<li><a href="#%E8%BC%B8%E5%87%BA%E7%B5%90%E6%9E%9C">1.3.5 輸出結果</a></li>
+<li><a href="#%E9%87%8D%E8%A6%81%E5%87%BD%E6%95%B8">1.4 重要函數</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#is_post_process">is_post_process</a>
+<ul>
+<li><a href="#%E5%BE%8C%E8%99%95%E7%90%86%E6%B5%81%E7%A8%8B">後處理流程</a></li>
+<li><a href="#%E8%BC%B8%E5%87%BA">輸出</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="isnormalprocess">is_normal_process</h3>
+<h4 id="%E8%B3%87%E6%96%99%E7%8D%B2%E5%8F%96">資料獲取</h4>
+<ol>
+<li><strong>讀取 OSM PBF 文件</strong>
+<ul>
+<li>從指定的 <code>.pbf</code> 文件中讀取資料。</li>
+</ul>
+</li>
+<li><strong>取出對應tags的每個線段</strong></li>
+<li><strong>存儲資料到 GeoDataFrame 中</strong>
+<ul>
+<li>資料被儲存在名為 <code>lines_df</code> 的 GeoDataFrame 中。</li>
+</ul>
+</li>
+<li><strong>輸出 unmerged.geojson</strong>
+<ul>
+<li>將資料儲存到 <code>unmerged.geojson</code> 文件中，路徑為 <code>f&quot;{output_path}/unmerged.geojson&quot;</code>。</li>
+</ul>
+</li>
+</ol>
+<h4 id="%E7%B7%9A%E6%AE%B5%E5%90%88%E4%BD%B5">線段合併</h4>
+<ol>
+<li><strong>高速公路模式 &amp; 其他模式</strong>
+<ul>
+<li><strong>合併方法</strong>: 使用 <code>utils.py</code> 中的 <code>LineUtils.merge_by_intersects()</code> 方法。</li>
+<li><strong>高速公路模式</strong>:
+<ul>
+<li>將不同等級的道路分到子 DataFrame 中。</li>
+<li>將每個子 DataFrame 中的線段進行合併，然後放入同一個列表中。</li>
+</ul>
+</li>
+<li><strong>其他模式</strong>:
+<ul>
+<li>直接進行合併。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h5 id="%E7%B7%9A%E6%AE%B5%E5%90%88%E4%BD%B5%E7%9A%84%E6%96%B9%E6%B3%95">線段合併的方法</h5>
+<pre class="hljs"><code><div><span class="hljs-comment">#src/utils.py</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_merged_coords</span><span class="hljs-params">(line1_coords: list, line2_coords: list)</span>:</span>
+    <span class="hljs-comment"># 檢查兩個線段的順序是否合適合併 line1_coords[-1]：表示第一個線段 line1_coords 的終點座標。 line2_coords[0]：表示第二個線段 line2_coords 的起點座標。</span>
+    source, target = (line1_coords, line2_coords) <span class="hljs-keyword">if</span> line1_coords[<span class="hljs-number">-1</span>] == line2_coords[<span class="hljs-number">0</span>] <span class="hljs-keyword">else</span> (line2_coords, line1_coords) 
+    source.pop(<span class="hljs-number">-1</span>) <span class="hljs-comment"># 移除重複點</span>
+    source.extend(target) <span class="hljs-comment"># 將 target 的座標列表添加到 source 之後，形成一個新的合併線段</span>
+    <span class="hljs-keyword">return</span> source
+</div></code></pre>
+<h4 id="%E7%89%B9%E6%AE%8A%E8%99%95%E7%90%86">特殊處理</h4>
+<ol>
+<li><strong>將字串轉換為幾何對象</strong>
+<ul>
+<li>使用 <code>wkt.loads(geometry)</code> 方法將字串轉換為幾何對象。</li>
+</ul>
+</li>
+<li><strong>航線的特殊處理</strong>
+<ul>
+<li>當 <code>HofnType</code> 為 <code>ferry</code> 時，生成一個 15 米的緩衝區。</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>將資料儲存到 <code>merged.geojson</code> 文件中，路徑為 <code>f&quot;{output_path}/merged.geojson&quot;</code>。</li>
+</ul>
+<h4 id="%E8%BC%B8%E5%87%BA">輸出</h4>
+<ol>
+<li><strong>輸出路徑</strong>
+<ul>
+<li>正常處理輸出路徑: <code>raw_processed_output_path = output_path + &quot;/raw_processed&quot;</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="isdivideprocess">is_divide_process</h3>
+<h3 id="%E7%9B%AE%E7%9A%84">目的</h3>
+<p>此函數用於處理和合併地理資料，並針對指定的多邊形 ID 進行分割。</p>
+<h3 id="%E8%99%95%E7%90%86%E6%B5%81%E7%A8%8B">處理流程</h3>
+<ol>
+<li>
+<p><strong>初始化</strong></p>
+<ul>
+<li>設定合併和未合併資料的檔案路徑。</li>
+<li>設定輸出路徑並創建目錄（如果尚不存在）。<code>output_path = f&quot;{data_path}/divided&quot;</code></li>
+</ul>
+</li>
+<li>
+<p><strong>讀取資料</strong></p>
+<ul>
+<li>從指定路徑讀取合併資料 (<code>merged_file</code>) 和未合併資料 (<code>unmerged_file</code>)。</li>
+</ul>
+</li>
+<li>
+<p><strong>處理分割</strong></p>
+<ul>
+<li>根據設定的分割長度閾值（預設為 100 公里）進行分割操作。</li>
+<li>對每個需要分割的多邊形 ID:
+<ul>
+<li>從合併資料中提取對應的幾何形狀。</li>
+<li>查找與未合併資料相交的幾何形狀。</li>
+<li>移除不需要分割的冗餘幾何形狀。</li>
+<li>將長幾何形狀分割為多個段。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>更新合併資料</strong></p>
+<ul>
+<li>從合併資料中移除已分割的多邊形 ID。</li>
+</ul>
+</li>
+<li>
+<p><strong>輸出結果</strong></p>
+<ul>
+<li>將分割結果和更新後的合併資料分別輸出為檔案。</li>
+</ul>
+</li>
+</ol>
+<h3 id="%E9%87%8D%E8%A6%81%E5%87%BD%E6%95%B8">重要函數</h3>
+<ul>
+<li><strong><code>read_data(file_path)</code></strong>: 讀取指定路徑的資料。</li>
+<li><strong><code>get_geometry_length_in_km(geometry)</code></strong>: 計算幾何形狀的長度（以公里為單位）。</li>
+<li><strong><code>LimitAreaUtils.get_intersects_dataframe(unmerged, geometry_wkt)</code></strong>: 查找與給定幾何形狀相交的資料。</li>
+<li><strong><code>LineUtils.get_sequential_merged_line(dataframe, threshold)</code></strong>: 根據指定的閾值合併相交的線段。</li>
+<li><strong><code>output_data(file_name, data)</code></strong>: 輸出處理結果為檔案。</li>
+</ul>
+<h3 id="ispostprocess">is_post_process</h3>
+<h4 id="%E5%BE%8C%E8%99%95%E7%90%86%E6%B5%81%E7%A8%8B">後處理流程</h4>
+<ol>
+<li><strong>地下捷運需額外提供原始 input</strong></li>
+<li><strong>有無分割 ID 的處理</strong>
+<ul>
+<li><strong>無分割 ID</strong>:
+<ul>
+<li>將不同模式進行後處理，依據具體 <code>mode</code> 執行：
+<ul>
+<li><strong>高速公路模式 (HofnType.HIGHWAY)</strong></li>
+<li><strong>海岸線模式 (HofnType.COASTLINE)</strong></li>
+<li><strong>地下捷運模式 (HofnType.UNDERGROUND_MRT)</strong></li>
+<li><strong>其他模式</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>有分割 ID</strong> (僅限於海岸線模式):
+<ul>
+<li>進行分割處理，並輸出分割後的資料。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="%E8%BC%B8%E5%87%BA">輸出</h4>
+<ol>
+<li>
+<p><strong>輸出路徑</strong></p>
+<ul>
+<li>後處理輸出路徑: <code>post_processed_output_path = output_path + &quot;/post_processed&quot;</code></li>
+</ul>
+</li>
+<li>
+<p><strong>特殊處理輸出</strong></p>
+<ul>
+<li>對於海岸線模式 (<code>coastline</code>)，會輸出兩個檔案：
+<ul>
+<li><code>divided_post_processed_data</code></li>
+<li>合併後的 <code>concat([normal_post_processed_data, divided_post_processed_data])</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="run-hofnpy">run Hofn.py</h1>
+<h2 id="main-programs">Main Programs</h2>
+<ul>
+<li><code>Hofn.py</code></li>
+<li><code>file_IO.py</code></li>
+<li><code>poly_process_cell.py</code></li>
+<li><code>config.ini</code>
+<ul>
+<li><img src="./image-10.png" alt="alt text"></li>
+</ul>
+</li>
+</ul>
+<h2 id="command-to-run">Command to Run</h2>
+<pre class="hljs"><code><div>python3 Hofn.py [Hilo_output path] [Hofn path]
+</div></code></pre>
+<p>Example:</p>
+<pre class="hljs"><code><div>python Hofn.py ./data/input/ ./data/output/
+</div></code></pre>
+<h2 id="input-files">Input Files</h2>
+<ul>
+<li>
+<p><strong>Path:</strong> <code>/home/covmo/test_Ian/Hofn_v39.1/data/input</code></p>
+<p><img src="./image.png" alt="Input Files"></p>
+</li>
+<li>
+<p><strong>Path:</strong> <code>/home/covmo/test_Ian/Hofn_v39.1</code></p>
+<p><img src="./image-1.png" alt="Directory Structure"></p>
+</li>
+</ul>
+<h2 id="output-files">Output Files</h2>
+<ul>
+<li>
+<p>path: <code>/home/covmo/test_Ian/Hofn_v39.1/data/output</code></p>
+<p><img src="./image-2.png" alt="alt text"></p>
+<p><img src="./image-3.png" alt="alt text"></p>
+<p><img src="./image-4.png" alt="alt text"></p>
+</li>
+</ul>
+<h1 id="overpass">overpass</h1>
+<h2 id="%E7%94%A8overpass%E5%90%8C%E6%99%82%E9%A1%AF%E7%A4%BA%E5%87%BA%E5%8F%B0%E7%81%A3%E8%B7%9F%E6%96%B0%E5%8A%A0%E5%9D%A1%E7%9A%84%E5%9C%B0%E9%90%B5">用overpass同時顯示出台灣跟新加坡的地鐵</h2>
+<ol>
+<li>
+<p>從Open stree map查詢ISO3166-1代碼</p>
+<p><img src="./image-5.png" alt="alt text"></p>
+</li>
+<li>
+<p>查詢台灣&amp;新加坡的area id</p>
+<pre class="hljs"><code><div>(
+  area["ISO3166-1"="TW"];
+  area["ISO3166-1"="SG"];
+);
+(._;&gt;;);
+out; 
+</div></code></pre>
+<p><img src="./image-7.png" alt="alt text">
+<a href="https://gis.stackexchange.com/questions/178424/overpass-turbo-area-code-lookup">reference</a></p>
+</li>
+<li>
+<p>利用area id 框出範圍(台灣+新加坡)</p>
+<pre class="hljs"><code><div>area(3600449220)-&gt;.taiwanArea;
+area(3600536780)-&gt;.singaporeArea;
+(.taiwanArea; .singaporeArea;)-&gt;.combinedArea;
+
+(
+  way[railway=subway](area.combinedArea);
+);
+out body;
+&gt;;
+out skel qt;
+</div></code></pre>
+<p><img src="./image-6.png" alt="alt text"></p>
+</li>
+</ol>
+<ul>
+<li>area id 要補滿十位數</li>
+<li>36 + [0*n] + relation id</li>
+</ul>
+<h2 id="%E6%9F%A5%E8%A9%A2%E4%B8%AD%E5%B1%B1%E5%8D%80%E6%8D%B7%E9%81%8B">查詢中山區捷運</h2>
+<pre class="hljs"><code><div>area(3602822029)-&gt;.zhongshanArea;
+(
+  way[railway=subway](area.zhongshanArea);
+);
+out body;
+&gt;;
+out skel qt;
+</div></code></pre>
+<p><img src="./image-8.png" alt="alt text"></p>
+
+</body>
+</html>

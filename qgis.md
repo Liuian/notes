@@ -1,4 +1,8 @@
 # QGIS
+# 根據columns上色
+- ![alt text](image.png)
+- 記得點`classify`才可渲染
+
 # 調整geomatric    
 - 因tsv無法編輯，用這個方法變成暫存檔
     - ![alt text](./image/qgis.png)

@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>1001_GIS_training.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="79379-prepare-gis-and-hofn-module-for-2degrees-new-zealand">#79379 Prepare GIS and Hofn module for 2degrees (New Zealand)</h1>
+<h2 id="pubuilding">PU_building</h2>
+<ol start="0">
+<li>
+<p>step 1+2+3: run <code>PU_building.py</code> in vscode by jupygter</p>
+</li>
+<li>
+<p>calculate building area interval</p>
+<p><img src="./image/image-18.png" alt="alt text"></p>
+<ul>
+<li>
+<p>PCS V.S. GCS</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>PCS</th>
+<th>GCS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cost time</td>
+<td>20 seconds</td>
+<td>5 mins 20 seconds</td>
+</tr>
+<tr>
+<td>adaptability</td>
+<td>low</td>
+<td>high</td>
+</tr>
+<tr>
+<td>screen shot</td>
+<td><img src="./image/image-10.png" alt="alt text"></td>
+<td><img src="./image/image-7.png" alt="alt text"></td>
+</tr>
+<tr>
+<td>method</td>
+<td><img src="./image/image-8.png" alt="alt text"></td>
+<td><img src="./image/image-9.png" alt="alt text"></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+<li>
+<p>buffer &amp; filter &amp; merge</p>
+<ul>
+<li>to select indicated area for visolization, run <code>select_area.py</code></li>
+<li>building count: 3490946 -&gt; 524758(keep only 15%)</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>area</th>
+<th>Raw Data</th>
+<th>Buffer (10 meter) + Filter (100 m²)</th>
+<th>Merged</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>urben area(wellington)</td>
+<td><img src="./image/image-4.png" alt="alt text"></td>
+<td><img src="./image/image-5.png" alt="alt text"></td>
+<td><img src="./image/image-6.png" alt="alt text"></td>
+</tr>
+<tr>
+<td>rural area</td>
+<td><img src="./image/image-15.png" alt="alt text"></td>
+<td><img src="./image/image-16.png" alt="alt text"></td>
+<td><img src="./image/image-17.png" alt="alt text"></td>
+</tr>
+</tbody>
+</table>
+<p>references :<br>
+<a href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoSeries.buffer.html">GeoSeries.buffer documentation</a><br>
+<a href="https://geopandas.org/en/v0.10.0/docs/reference/api/geopandas.GeoSeries.unary_union.html">GeoSeries.unary_union documentation</a></p>
+</li>
+<li>
+<p>fill in holes</p>
+<ul>
+<li>
+<p>count holes distribution</p>
+<p><img src="./image/image-12.png" alt="alt text"></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Before</th>
+<th>After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="./image/image-1.png" alt="alt text"></td>
+<td><img src="./image/image-3.png" alt="alt text"></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+<h1 id="81019-new-3d-building-for-telkomsel">81019 New 3D building for Telkomsel</h1>
+<ul>
+<li>
+<p>Check:</p>
+<ol>
+<li>All geometries are valid
+<ul>
+<li>some buildings are invalid -&gt; validize by convert to multipolygon, split to polygons, reassign polygon_id</li>
+</ul>
+</li>
+<li>All geometries type are Polygon
+<ul>
+<li>split to polygons, reassign polygon_id</li>
+</ul>
+</li>
+<li>All <code>Polygon_ID</code> are unique</li>
+<li>No Null value
+<ul>
+<li>A building with null value in column <code>POLYGON_ID</code> is assigned as <code>103063173000010</code></li>
+</ul>
+</li>
+<li>(<code>AGL</code> &amp; <code>AMSL</code> &amp; <code>Building_max_AGL</code>) != 0</li>
+<li>datatype</li>
+</ol>
+</li>
+<li>
+<p>new columns:</p>
+<ul>
+<li><code>Building_ID</code> and <code>Building_Name</code>: If two building intersect, their <code>building_ID</code> should be the same. Use highest building's <code>Polygon_name</code> as the <code> Building_ID</code> and <code>Building_name</code> for the group(intersect buildings).</li>
+<li><code>Polygon_Centroid</code>: Assign each polygon's centroid.</li>
+<li><code>Building_max_AGL</code>: Assign the hightest building's <code>AGL</code> for the entire group(intersect buildings).</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Columns required</th>
+<th>New File's Columns</th>
+<th>Columns to Keep in new file</th>
+<th>New Columns to Add in new file</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WKT</td>
+<td>Polygon_ID</td>
+<td>Polygon_ID</td>
+<td>Building_ID</td>
+</tr>
+<tr>
+<td>Polygon_ID</td>
+<td>class</td>
+<td>AGL</td>
+<td>Building_Name</td>
+</tr>
+<tr>
+<td>AGL</td>
+<td>AGL</td>
+<td>AMSL</td>
+<td>Polygon_Centroid</td>
+</tr>
+<tr>
+<td>AMSL</td>
+<td>AMSL</td>
+<td>geometry</td>
+<td>Building_max_AGL</td>
+</tr>
+<tr>
+<td>Building_ID</td>
+<td>Longitude</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Building_Name</td>
+<td>Latitude</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Polygon_Centroid</td>
+<td>geometry</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Building_max_AGL</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>old data</th>
+<th>new data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="./image/image-13.png" alt="alt text"></td>
+<td><img src="./image/image-14.png" alt="alt text"></td>
+</tr>
+</tbody>
+</table>
+<p><strong>validation</strong></p>
+<pre class="hljs"><code><div>
+<span class="hljs-comment">#%% 1. Check each column's datatype and print a message if it doesn't match the expected type</span>
+print(<span class="hljs-string">'Step1: Checking for datatype...'</span>)
+expected_dtypes = {
+    <span class="hljs-string">'WKT'</span>: <span class="hljs-string">'geometry'</span>,
+    <span class="hljs-string">'Polygon_ID'</span>: <span class="hljs-string">'int64'</span>,
+    <span class="hljs-string">'AGL'</span>: <span class="hljs-string">'float64'</span>,
+    <span class="hljs-string">'AMSL'</span>: <span class="hljs-string">'float64'</span>,
+    <span class="hljs-string">'Building_ID'</span>: <span class="hljs-string">'int64'</span>,
+    <span class="hljs-string">'Building_Name'</span>: <span class="hljs-string">'int64'</span>,
+    <span class="hljs-string">'Polygon_Centroid'</span>: <span class="hljs-string">'object'</span>,
+    <span class="hljs-string">'Building_max_AGL'</span>: <span class="hljs-string">'float64'</span>
+}
+all_correct = <span class="hljs-literal">True</span>
+<span class="hljs-keyword">for</span> column, expected_dtype <span class="hljs-keyword">in</span> expected_dtypes.items():
+    actual_dtype = str(gdf.dtypes.get(column, <span class="hljs-literal">None</span>))  <span class="hljs-comment"># Get the actual dtype or None if the column is missing</span>
+    <span class="hljs-keyword">if</span> actual_dtype != expected_dtype:
+        print(<span class="hljs-string">f"Column '<span class="hljs-subst">{column}</span>' has datatype '<span class="hljs-subst">{actual_dtype}</span>', expected '<span class="hljs-subst">{expected_dtype}</span>'."</span>)
+        all_correct = <span class="hljs-literal">False</span>
+<span class="hljs-keyword">if</span> all_correct:
+    print(<span class="hljs-string">'\nAll datatypes are correct.'</span>)
+
+<span class="hljs-comment">#%% 2. Ensure there are no null values in `Polygon_ID`</span>
+print(<span class="hljs-string">"Step 2: Checking for null values in `Polygon_ID`..."</span>)
+null_polygon_ids = gdf[gdf[<span class="hljs-string">'Polygon_ID'</span>].isnull()]
+<span class="hljs-keyword">if</span> len(null_polygon_ids) &gt; <span class="hljs-number">0</span>:
+    print(<span class="hljs-string">f"Found <span class="hljs-subst">{len(null_polygon_ids)}</span> rows with null `Polygon_ID` values."</span>)
+<span class="hljs-keyword">else</span>:
+    print(<span class="hljs-string">'\nNo null value'</span>)
+
+<span class="hljs-comment">#%% 3. Ensure (`AGL`, `AMSL`, `Building_max_AGL`) != 0</span>
+print(<span class="hljs-string">"Step 3: Checking for zero values in `AGL`, `AMSL`, or `Building_max_AGL`..."</span>)
+zero_values = gdf[(gdf[<span class="hljs-string">'AGL'</span>] == <span class="hljs-number">0</span>) | (gdf[<span class="hljs-string">'AMSL'</span>] == <span class="hljs-number">0</span>) | (gdf[<span class="hljs-string">'Building_max_AGL'</span>] == <span class="hljs-number">0</span>)]
+<span class="hljs-keyword">if</span> len(zero_values) &gt; <span class="hljs-number">0</span>:
+    print(<span class="hljs-string">f"Found <span class="hljs-subst">{len(zero_values)}</span> rows with `AGL`, `AMSL`, or `Building_max_AGL` equal to 0."</span>)
+<span class="hljs-keyword">else</span>:
+    print(<span class="hljs-string">'No 0 in AGL, AMSL and Building_max_AGL'</span>)    
+
+<span class="hljs-comment">#%% 4. Ensure all `Polygon_ID` are unique</span>
+print(<span class="hljs-string">"Step 4: Checking for duplicate Polygon_IDs..."</span>)
+duplicate_polygon_ids = gdf[gdf.duplicated(subset=<span class="hljs-string">'Polygon_ID'</span>, keep=<span class="hljs-literal">False</span>)]
+<span class="hljs-keyword">if</span> len(duplicate_polygon_ids) &gt; <span class="hljs-number">0</span>:
+    print(<span class="hljs-string">f"Found <span class="hljs-subst">{len(duplicate_polygon_ids)}</span> duplicate `Polygon_ID`s."</span>)
+<span class="hljs-keyword">else</span>:
+    print(<span class="hljs-string">'\nNo duplicate Polygon_IDs'</span>)
+
+<span class="hljs-comment">#%% 5. Ensure all geometries are valid</span>
+print(<span class="hljs-string">"Step 5: Checking for invalid geometries..."</span>)
+gdf[<span class="hljs-string">'is_valid'</span>] = gdf[<span class="hljs-string">'WKT'</span>].is_valid
+invalid_geometries = gdf[~gdf[<span class="hljs-string">'is_valid'</span>]]
+<span class="hljs-keyword">if</span> len(invalid_geometries) &gt; <span class="hljs-number">0</span>:
+    print(<span class="hljs-string">f"Found <span class="hljs-subst">{len(invalid_geometries)}</span> invalid geometries."</span>)
+<span class="hljs-keyword">else</span>:
+    print(<span class="hljs-string">"\nAll geomatries are valid"</span>)
+
+<span class="hljs-comment">#%% 6. Ensure all geometries are of Polygon type</span>
+print(<span class="hljs-string">"Step 6: Checking for non-Polygon geometries..."</span>)
+gdf[<span class="hljs-string">'geom_type'</span>] = gdf[<span class="hljs-string">'WKT'</span>].geom_type
+non_polygon_geometries = gdf[gdf[<span class="hljs-string">'geom_type'</span>] != <span class="hljs-string">'Polygon'</span>]
+<span class="hljs-keyword">if</span> len(non_polygon_geometries) &gt; <span class="hljs-number">0</span>:
+    print(<span class="hljs-string">f"Found <span class="hljs-subst">{len(non_polygon_geometries)}</span> geometries that are not of type Polygon."</span>)
+<span class="hljs-keyword">else</span>:
+    print(<span class="hljs-string">'\nAll geometries are Polygon type'</span>)
+
+print(<span class="hljs-string">"\nValidation completed."</span>)    
+</div></code></pre>
+
+</body>
+</html>
