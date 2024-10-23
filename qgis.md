@@ -2,6 +2,8 @@
 # 根據columns上色
 - ![alt text](image.png)
 - 記得點`classify`才可渲染
+- 好看的顏色
+    - ![alt text](./image/qgis-11.png)
 
 # 調整geomatric    
 - 因tsv無法編輯，用這個方法變成暫存檔

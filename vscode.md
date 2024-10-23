@@ -14,3 +14,5 @@
     - ![alt text](./image/vscode-2.png)
 4. Select Miniconda Python Environment
     - After connecting to the remote server, press `Ctrl + Shift + P` again and search for `Python: Select Interpreter`.
+
+- TODO: 查這個jupyter是怎麼連上server的，port是多少，config是哪個檔案
