@@ -20,7 +20,9 @@
 # 81651 Create Africa PU rule
 ## Nigeria-81651 
 1. pin site location in the map with each vendor(Nokia, Hnawei, ZTE) 
-    - ![alt text](./image/81651-0.png)
+    <!-- - ![alt text](./image/81651-0.png) -->
+    - <img src="./image/81651-0.png" alt="description" height="500">
+
     - columns: `Siteid(enodebid)`, `Latitude`, `Longitude`, `Vendor_name`, `RRC`
 2. Split PU for each districts
     |district|Before|After|
@@ -34,6 +36,10 @@
     
     - calculate RRC in rach area
         - ![alt text](./image/81651-5.png)
+    
+    |Before|After|
+    |-----|------|
+    |![alt text](./image/81651-6.png)|![alt text](./image/81651-7.png)|
 # 81068 Africa 14 countries GIS landusage
 ## Add 14 countries' information into program
 
