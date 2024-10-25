@@ -21,22 +21,22 @@
 
 ### detail
 1. sindex + DFS
-    - ![alt text](image-1.png)
+    - ![alt text](./image/research_pu_building-1.png)
     - each section's time
-        - ![alt text](image-2.png)
+        - ![alt text](./image/research_pu_building-2.png)
 2. sindex + BFS
-    - ![alt text](image.png)
+    - ![alt text](./image/research_pu_building.png)
 
 3. R-tree + DFS
-    - ![alt text](image-6.png)
+    - ![alt text](./image/research_pu_building-6.png)
     - each section's time
-        - ![alt text](image-4.png)
-    - ![alt text](image-3.png)
+        - ![alt text](./image/research_pu_building-4.png)
+    - ![alt text](./image/research_pu_building-3.png)
 
 4. R-tree + BFS
     - Leaf Capacity: 100
-    - ![alt text](image-5.png)
-    - ![alt text](image-3.png)
+    - ![alt text](./image/research_pu_building-5.png)
+    - ![alt text](./image/research_pu_building-3.png)
 
 ## 講解
 1. DFS
@@ -62,9 +62,9 @@
 3. sindex
     - sindex output:
         - shape: (2, 11568726)
-        - ![alt text](image-8.png)
+        - ![alt text](./image/research_pu_building-8.png)
     - transfer output into graph
-        - ![alt text](image-7.png)
+        - ![alt text](./image/research_pu_building-7.png)
 
 4. R-tree
     - ![alt text](./image/R-tree-1.png)
@@ -95,11 +95,14 @@
 - ![alt text](./image/81068-7.png)
 ## possiable reason for time of 'sindex + DFS' << 'R-tree + DFS'
 1. R-tree 索引構建成本： 雖然 R-tree 在空間查詢時能提升效率，但構建索引本身需要花費時間。對於非常大的資料集，建立 R-tree 可能會耗費相當多的時間，這會讓初始計算變慢。
-    - sindex + DFS: ![alt text](image-2.png)
-    - r-tree + DFS: ![alt text](image-4.png)
+    - sindex + DFS: ![alt text](./image/research_pu_building-2.png)
+    - r-tree + DFS: ![alt text](./image/research_pu_building-4.png)
 
 2. 範圍查詢(r-tree) vs 精確查詢(sindex)： R-tree 的運作方式是基於幾何邊界盒 (bounding box)，因此它只查找可能的相交幾何。即使兩個幾何體的邊界盒重疊，也不一定意味著實際幾何相交。因此，R-tree 查詢後仍需要進一步的幾何相交判斷，這增加了額外的計算量，尤其在碰到複雜幾何時。
-    - ![alt text](image-9.png)
+    - ![alt text](./image/research_pu_building-9.png)
 
 3. 原是資料相交測試次數增加： 雖然 R-tree 可以幫助篩選可能相交的幾何體，但若幾何體過於密集（有大量相交的情況），每次查詢可能會返回很多潛在的相交對象，導致後續的相交測試次數顯著增加，從而降低效率。
     - ![alt text](./image/81068-7.png)
+
+#TODO: 從sindex套件中間截斷r-tree繼續做
+#TODO: 全部相交的找完再一次合併union
