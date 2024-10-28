@@ -5,8 +5,10 @@
 - [81068 Africa 14 countries GIS landusage](#81068-africa-14-countries-gis-landusage)
   - [TZ (Tanzania)](#tz-tanzania)
     - [NT2_GEO_POLYGON_Tanzania](#nt2_geo_polygon_tanzania_81068)
-    - [PU_Building](#pu_building_tanzania_81068)
+    - [PU_Building_TZ](#pu_building_tanzania_81068)
   - [UG_Uganda_81068](#ug_uganda_81068)
+    - [NT2_GEO_POLYGON_UG](#nt2_geo_polygon_ug_81068)
+    - [PU_Building_UG](#pu_building_ug_81068)
 
 - [79379 Prepare GIS and Hofn module for 2degrees (New Zealand)](#79379-prepare-gis-and-hofn-module-for-2degrees-new-zealand)
   - [NT2_GEO_POLYGON(1 Water, 2 Coastline, 7 Highway)](#nt2_geo_polygon_newzealand)
@@ -181,8 +183,8 @@ area_interval
     - der es-salaam
     - <img src="./image/81068-7.png" alt="description" height="500">
 ## UG_Uganda_81068
-### NT2_GEO_POLYGON
-### PU_building
+### NT2_GEO_POLYGON_UG_81068
+### PU_building_UG_81068
 - `python batch_processor.py`
 - output
     |overview|capital city-Kampala|

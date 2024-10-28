@@ -1,5 +1,7 @@
-## 工作紀錄
+- [工作紀錄](#工作紀錄)
+    - [20241028](#20241028)
 
+## 工作紀錄
 ### 8.1.2024
 - 簽署入職文件、介紹環境
 - 課程：Emma介紹CovMo 101
@@ -737,17 +739,34 @@ o 切PU #80806 - Split huge traffic Ericsson PUs to v3 servers
 - 如何反向寫入qgis 檔案
 - 2calculate_total_rrc.py寫註解
 
-### Weekly report 20241023
+## Weekly report 20241023
 - #81651 - [Airtel Africa] Create PU_rule for Nigeria.
 - Topic sharing – research merge building algorithm for PU_building
 
-### PLAN
+- **PLAN**
 - #81068 - [Airtel Africa] Create NT2_GEO_POLYGON and polygon-based all_buildings for Africa 13 countries.
 
-## 20241024
+### 20241024
 - Topic sharing, 自評 & 互評
   - 完成Topic sharing: [PU_building] efficient spatial merging algorithm 
   - 完成本季self review & review_research (自評&互評)
+
+### 20241028
+- 計算uganda total RRC (for PU_rule)
+- 跑 `polygon_based_all_buildings` 12個國家
+    - `batch_process.py`一次執行多個檔案
+- `NT2_GEO_POLYGON`, `uganda` 
+    - create `run_osm_offline_parser.py`
+    - run command
+        ```python
+        commands = [
+        ["python", "osm_offline_parser.py", "./data/input/uganda-latest.osm.pbf", "641", "1"],
+        ["python", "osm_offline_parser.py", "./data/input/uganda-latest.osm.pbf", "641", "2"],
+        ["python", "osm_offline_parser.py", "./data/input/uganda-latest.osm.pbf", "641", "7"],
+        ["python", "osm_offline_parser.py", "./data/input/uganda-latest.osm.pbf", "641", "11"]
+        ]
+        ```
+
 
 ### TODO
 - 寫測驗題(已完成3待寫6)

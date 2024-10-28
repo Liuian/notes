@@ -236,3 +236,72 @@ In summary:
 Because Python doesn’t automatically link a new assignment (like `gdf_update = ...`) to other variables that previously referred to the same object. After reassigning `gdf_update`, only `gdf_update` refers to the filtered DataFrame, while `gdf` remains as it was.
 
 This distinction allows you to freely modify subsets of your data (as `gdf_update`) without impacting the original data (in `gdf`).
+
+# steps to set up a system for processing multiple GeoJSON files using two separate Python files:
+## 1. **Create `main_process.py`**
+   - **Purpose**: Contains the core logic to process a single GeoJSON file.
+   - **Function**: Define a function (e.g., `process_geojson(input_file, output_file)`) that takes the input GeoJSON file path and the output TSV file path as parameters.
+   - **Content**: Include all necessary imports and the processing logic for reading the GeoJSON file, performing calculations, and saving the results as a TSV file.
+
+## Example Structure of `main_process.py`
+```python
+import geopandas as gpd
+
+def process_geojson(input_file, output_file):
+    # Load the GeoJSON file
+    gdf = gpd.read_file(input_file)
+    
+    # Perform processing (calculations, transformations, etc.)
+    
+    # Save the result to a TSV file
+    gdf.to_csv(output_file, sep='\t', index=False)
+
+# Optionally include a main block for testing
+if __name__ == "__main__":
+    process_geojson('example.geojson', 'output.tsv')
+```
+
+## 2. **Create `batch_processor.py`**
+   - **Purpose**: Loops through all the GeoJSON files in a specified directory and calls the processing function from `main_process.py` for each file.
+   - **Directory Setup**: Define input and output directories for the GeoJSON and processed files.
+   - **File Loop**: Use `os.listdir()` to iterate through the files in the input directory, check for `.geojson` extensions, and call the processing function.
+
+## Example Structure of `batch_processor.py`
+```python
+import os
+from main_process import process_geojson  # Import the processing function
+
+# Define directories
+input_dir = '/path/to/your/geojson/files/'  # Directory with GeoJSON files
+output_dir = '/path/to/save/processed/files/'  # Directory to save TSV files
+
+# Create output directory if it doesn't exist
+if not os.path.exists(output_dir):
+    os.makedirs(output_dir)
+
+# Process each GeoJSON file in the input directory
+for file_name in os.listdir(input_dir):
+    if file_name.endswith('.geojson'):
+        input_file = os.path.join(input_dir, file_name)
+        output_file = os.path.join(output_dir, file_name.replace('.geojson', '_processed.tsv'))
+        
+        # Call the process_geojson function
+        process_geojson(input_file, output_file)
+
+        print(f"Finished processing: {input_file}")
+```
+
+## Summary Steps
+1. **Define processing logic in `main_process.py`**:
+   - Write a function to process a single GeoJSON file.
+   - Include the necessary logic to handle the GeoDataFrame and save it as a TSV file.
+
+2. **Set up batch processing in `batch_processor.py`**:
+   - Import the processing function.
+   - Set up input and output directories.
+   - Loop through the files, process each GeoJSON, and save the results.
+
+3. **Run `batch_processor.py`**:
+   - This script will process all GeoJSON files in the specified directory and save the results in the output directory. 
+
+By organizing your code in this way, you can maintain a clean separation of concerns while making it easy to process multiple files efficiently.
