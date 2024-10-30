@@ -1,4 +1,6 @@
 # Table of Contents
+- [82154 STC-VDT Provide roads with road_level-7 in the polygon PU73118 osm_offline_parser -locli](#82154-stc-vdt-provide-roads-with-road_level-7-in-the-polygon-pu73118-osm_offline_parser-locli)
+
 - [81651 Create Africa PU rule](#81651-create-africa-pu-rule)
     - [Nigeria](#nigeria-81651) 
 
@@ -19,6 +21,31 @@
 
 - [80645 Maldives](#80645-maldives)
   - [NT2_GEO_POLYGON(10 ferry)](#nt2_geo_polygon_maldives)
+
+# 82109 Uganda PU_rule
+- 
+
+# 82154 stc-vdt provide roads with road_level-7 in the polygon pu73118 osm_offline_parser locli
+- input: `./data/input/gcc-states-latest.osm.pbf`
+- output: `./data/output/Saudi_arabia/highway/custom/post_processed/highway.tsv`
+
+1. run `python osm_offline_parser.py ./data/input/gcc-states-latest.osm.pbf 420 7`
+    - since need `processed.osm.pbf` to use argument `-locli`
+    - `./data/output/Saudi_arabia/limit_polygon/['307584']/processed.osm.pbf`
+
+2. draw a handmade polygon by WKT provied by PM and put in right directory.
+    - output from geojson.io: `map.geojson`
+    - name as: `limit_polygon.geojson`
+    - locate .geojson file in path: `./data/output/Saudi_arabia/limit_polygon/custom`
+    - create directory `custom` manually.
+    - ![alt text](./image/82154-geojson_io.png)
+
+3. execute program using command `python osm_offline_parser.py ./data/input/gcc-states-latest.osm.pbf 420 7 -locli`
+
+4. output: `./data/output/Saudi_arabia/highway/custom/post_processed/highway.tsv`
+    | overview | zoom in |
+    |------|-----|
+    | ![alt text](./image/82154_overview_STC_PU73118_road_level_7.png)|![alt text](./image/82154_zoom_in_stc_pu73118_road_level_7.png)|
 
 # 81651 Create Africa PU rule
 ## Nigeria-81651 
