@@ -766,8 +766,13 @@ o 切PU #80806 - Split huge traffic Ericsson PUs to v3 servers
         ["python", "osm_offline_parser.py", "./data/input/uganda-latest.osm.pbf", "641", "11"]
         ]
         ```
-
+ 
 ### 20241029
+- **#82109** count rrc total 
+- **#82154** [STC-VDT] create highway.tsv contains roads with road_level-7 in the polygon you provide previously(PU73118).
+    - 教luthfi如何使用QGIS一次選擇多段馬路，輸出為geojson，也方便gis後續處理
+
+### weekly report 20241030
 - #82109 [Africa-Uganda] count rrc total for 'ZTE' and 'Huawei'
 - #82154 [STC-VDT] create highway.tsv contains roads with road_level-7 in the polygon you provide previously(PU73118).
     - Teach Luthfi how to use QGIS for selecting multiple road segments at once and exporting as GeoJSON, which will facilitate further GIS processing.
@@ -775,20 +780,11 @@ o 切PU #80806 - Split huge traffic Ericsson PUs to v3 servers
 - Plan
   - #82109 [Africa-Uganda] Create PU-rule
   - #81068 [Africa] polygon-based all_buildings for Nigeria & NT2_GEO_POLYGON
- 
-### weekly report 20241030
-- **#82109** count rrc total 
-- **#82154** [STC-VDT] create highway.tsv contains roads with road_level-7 in the polygon you provide previously(PU73118).
-    - 教luthfi如何使用QGIS一次選擇多段馬路，輸出為geojson，也方便gis後續處理
 
 ### 20241030
 - **#82109** 清理客戶給的 Uganda Region 資料，包括將兩個區域的region切下一小斷，合併成新的
-  - ![alt text](image.png)
-  - ![alt text](image-1.png)
 
-  - ![alt text](image-2.png)
-  - ![alt text](image-3.png)
-  
+
 - **#82109** 完成ZTE PU_rule
 - **#81068** 上傳12個國家的 polygon_based_all_building.tsv
     1. UG (Uganda)
@@ -803,6 +799,12 @@ o 切PU #80806 - Split huge traffic Ericsson PUs to v3 servers
     10. RW (Rwanda)
     11. SC (Seychelles and dependencies)
     12. TD (Chad)
+
+### 20241031
+- **82138** + **82139**: Ten island coastline and two ferry route has been add to NT2_GEO_POLYGON.tsv file.
+
+### 20241101
+- **#82109** [PU_rule for Uganda] split region to create PU_rule
 
 
 ### TODO

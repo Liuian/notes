@@ -1,4 +1,8 @@
 # Table of Contents
+- [82109 Uganda PU_rule](#82109-uganda-pu_rule)
+
+- [82139 Telkomsel add Ferry Route into NT2_GEO_POLYGON](#82139-telkomsel-add-ferry-route-into-nt2_geo_polygon)
+
 - [82154 STC-VDT Provide roads with road_level-7 in the polygon PU73118 osm_offline_parser -locli](#82154-stc-vdt-provide-roads-with-road_level-7-in-the-polygon-pu73118-osm_offline_parser-locli)
 
 - [81651 Create Africa PU rule](#81651-create-africa-pu-rule)
@@ -11,6 +15,9 @@
   - [UG_Uganda_81068](#ug_uganda_81068)
     - [NT2_GEO_POLYGON_UG](#nt2_geo_polygon_ug_81068)
     - [PU_Building_UG](#pu_building_ug_81068)
+  - [PU_building for 12 countries](#pu_building-for-12-countries)
+    - [1. UG (Uganda) 2. KE (Kenya) 3. ZM (Zambia) 4. CD (Democratic Republic of Congo) 5. CG (Republic of Congo) 6. GA (Gabon) 7. MG (Madagascar) 8. MW (Malawi) 9. NE (Niger) 10. RW (Rwanda) 11. SC (Seychelles and dependencies) 12. TD (Chad)](#1-ug-uganda-2-ke-kenya-3-zm-zambia-4-cd-democratic-republic-of-congo-5-cg-republic-of-congo-6-ga-gabon-7-mg-madagascar-8-mw-malawi-9-ne-niger-10-rw-rwanda-11-sc-seychelles-and-dependencies-12-td-chad)
+
 
 - [79379 Prepare GIS and Hofn module for 2degrees (New Zealand)](#79379-prepare-gis-and-hofn-module-for-2degrees-new-zealand)
   - [NT2_GEO_POLYGON(1 Water, 2 Coastline, 7 Highway)](#nt2_geo_polygon_newzealand)
@@ -22,8 +29,74 @@
 - [80645 Maldives](#80645-maldives)
   - [NT2_GEO_POLYGON(10 ferry)](#nt2_geo_polygon_maldives)
 
+
 # 82109 Uganda PU_rule
-- 
+- provide total RRC for 'ZTE' and 'Huawei' in different region:
+
+    **Huawei**
+    | **Vendor** | **Region** | **Total RRC** |
+    |-----|------|------|
+    | Huawei | East 1 | 407,766,588 |
+    | Huawei | East 2 | 100,156,171 |
+    | Huawei | Central 1 | 498,981,566 |
+    | Huawei | Central 2 | 319,297,450 |
+    | Huawei | North | 97,614 |
+    | Huawei | West 1 | 9,847,672 |
+    | Huawei | Kampala | 1,082,208,881 |
+
+    - No sites found for WestNile.
+    - No sites found for West 2.
+
+    **ZTE**
+    | **Vendor** | **Region** | **Total RRC** |
+    |------|-----|------|
+    | ZTE | East 1 | 14,180,948 |
+    | ZTE | East 2 | 18,968,266 |
+    | ZTE | Central 1 | 80,040,219 |
+    | ZTE | Central 2 | 8,095,005 |
+    | ZTE | North | 29,470,466 |
+    | ZTE | WestNile | 15,232,893 |
+    | ZTE | West 1 | 44,474,154 |
+    | ZTE | West 2 | 78,559,083 |
+
+    - No sites found for Kampala.
+
+    - ![alt text](./image/82109-4.png)
+
+- source data prepropocess: Eliminate all gaps between regions and fix any incorrect regions boundry and clean some not necessery polygon.
+    - run `program_PU_rule/1_preprocess_boundries.py`
+      ||clean unnecessary polygon|fix region boundry|
+      |-----|-----|-----|
+      |before|![alt text](./image/82109-2.png)|![alt text](./image/82109.png)|
+      |after| ![alt text](./image/82109-3.png)|![alt text](./image/82109-1.png)|
+
+# 82139 Telkomsel add Ferry Route into NT2_GEO_POLYGON
+- ferry route width adjust
+```python
+# osm_offlinw_parser/src/line.py
+# line 116
+if IS_BUFFER: #Hofn_type = ferry 航線生成一個??米的緩衝區
+    result_gdf[DataColumns.GEOMETRY.value] = result_gdf.geometry.apply(lambda geometry: geometry.buffer(50 / 6371000 / math.pi * 180))
+
+# osm_offline_parser/resource/config.ymal
+Indonesia:
+    mcc: "510"
+    relation: "304751"
+
+# osm_offline_parser/src/attribute.py
+Indonesia = country_config.get("Indonesia").get("mcc"), country_config.get("Indonesia").get("relation")    
+```
+- `python osm_offline_parser.py ./data/input/indonesia-latest.osm.pbf 510 10`
+- `python geo_polygon_generator.py 510 '10'`
+- filter two ferry route: `./nt2_geo_polygon/extract_indicated_polygon.py`
+- merge same ferry route name: `./nt2_geo_polygon/ferry_merge_polygon.py`
+    - ferry route name `Ketapang - Gilimanuk` have 5 rows initally, merge into one route
+        |original-1|original-2|merged|
+        |------|-----|-----|
+        |![alt text](./image/82139-1.png)|![alt text](./image/82139-2.png)|![alt text](./image/82139.png)|
+- merge old and new `NT2_GEO_POLYGON.tsv` file: `./nt2_geo_polygon/merge_tsv.py`
+- put in directry `\\INTERNAL1\Project3\CovMo\Module\Geolocation\Landusage_Hofn\Project_base_OSM_data\TKSL\20241031`
+- write `readme` and `redmine`
 
 # 82154 stc-vdt provide roads with road_level-7 in the polygon pu73118 osm_offline_parser locli
 - input: `./data/input/gcc-states-latest.osm.pbf`
@@ -217,42 +290,36 @@ area_interval
     |overview|capital city-Kampala|
     |-----|-----|
     |![alt text](./image/81068-8.png)|![alt text](./image/81068-9.png)|
+
+## PU_building for 12 countries
+### 1. UG (Uganda) 2. KE (Kenya) 3. ZM (Zambia) 4. CD (Democratic Republic of Congo) 5. CG (Republic of Congo) 6. GA (Gabon) 7. MG (Madagascar) 8. MW (Malawi) 9. NE (Niger) 10. RW (Rwanda) 11. SC (Seychelles and dependencies) 12. TD (Chad)
+- Continuously process 12 files by running `./pu_building/batch_processor.py`
+
 ## NG (Nigeria)
 ### NT2_GEO_POLYGON
 ### PU_building
 ## KE (Kenya)
 ### NT2_GEO_POLYGON
-### PU_building
 ## ZM (Zambia)
 ### NT2_GEO_POLYGON
-### PU_building
 ## CD (Democratic Republic of Congo)
 ### NT2_GEO_POLYGON
-### PU_building
 ## CG (Republic of Congo)
 ### NT2_GEO_POLYGON
-### PU_building
 ## GA (Gabon)
 ### NT2_GEO_POLYGON
-### PU_building
 ## MG (Madagascar)
 ### NT2_GEO_POLYGON
-### PU_building
 ## MW (Malawi)
 ### NT2_GEO_POLYGON
-### PU_building
 ## NE (Niger)
 ### NT2_GEO_POLYGON
-### PU_building
 ## RW (Rwanda)
 ### NT2_GEO_POLYGON
-### PU_building
 ## SC (Seychelles and dependencies)
 ### NT2_GEO_POLYGON
-### PU_building
 ## TD (Chad)
 ### NT2_GEO_POLYGON
-### PU_building
 
 # 79379 Prepare GIS and Hofn module for 2degrees (New Zealand)
 ## NT2_GEO_POLYGON_newzealand
