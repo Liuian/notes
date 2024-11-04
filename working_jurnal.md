@@ -783,8 +783,6 @@ o 切PU #80806 - Split huge traffic Ericsson PUs to v3 servers
 
 ### 20241030
 - **#82109** 清理客戶給的 Uganda Region 資料，包括將兩個區域的region切下一小斷，合併成新的
-
-
 - **#82109** 完成ZTE PU_rule
 - **#81068** 上傳12個國家的 polygon_based_all_building.tsv
     1. UG (Uganda)
