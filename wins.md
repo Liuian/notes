@@ -40,3 +40,9 @@
 - Right-click on the PowerShell icon in the taskbar and select `split tab`.
     - ![alt text](./image/wins-4.png)
     - ![alt text](./image/wins-3.png)
+
+## View Current Directory in PowerShell
+- command: `Get-Location`
+
+## Switch to Disk D:
+- command: `D:`

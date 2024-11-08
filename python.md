@@ -1,5 +1,6 @@
-# How variables handle mutable objects (like `lists`, `dicts`, and `DataFrames`) in Python
-## Question 1
+# python
+## How variables handle mutable objects (like `lists`, `dicts`, and `DataFrames`) in Python
+### Question 1
 - python 函數中的變數為何也會更改到原始變數?在以下例子中，gdf被新增了面積及面積區間欄位。
 ```python
 def calculate_area(geom):
@@ -27,13 +28,13 @@ def area_interval_gcs(gdf):
 interval_stats, gdf_update = area_interval_gcs(gdf)
 print(interval_stats)
 ```
-## Answer 1
+### Answer 1
 In Python, understanding how variables handle mutable objects (like `lists`, `dicts`, and `DataFrames`) is key to understanding how changes propagate. Here’s a more in-depth explanation:
 
-### 1. **Variable Assignment and References**
+#### 1. **Variable Assignment and References**
 In Python, when you assign a variable to a mutable object (such as a `list`, `dict`, or `DataFrame`), the variable doesn't hold the actual object itself, but rather a **reference** to the object. This means that multiple variables can reference the same object in memory.
 
-#### Example:
+##### Example:
 ```python
 a = [1, 2, 3]  # List is mutable
 b = a  # b now references the same list object as a
@@ -44,13 +45,13 @@ print(a)  # Output: [1, 2, 3, 4]
 ```
 In this example, modifying `b` also modifies `a` because they both refer to the **same list in memory**.
 
-### 2. **Mutable vs. Immutable Objects**
+#### 2. **Mutable vs. Immutable Objects**
 - **Mutable objects**: These can be changed after they are created. Examples include `list`, `dict`, `set`, `DataFrame`, `GeoDataFrame`, etc.
 - **Immutable objects**: These cannot be changed after creation. Examples include `int`, `float`, `tuple`, `str`, etc.
 
 For **immutable** objects like strings, if you attempt to modify the object, Python creates a new object rather than modifying the original one.
 
-#### Example (Immutable Objects):
+##### Example (Immutable Objects):
 ```python
 x = 5  # Integer is immutable
 y = x
@@ -62,10 +63,10 @@ print(y)  # Output: 6
 
 In this case, modifying `y` does not affect `x` because integers are immutable. A new object is created instead.
 
-### 3. **Passing Mutable Objects to Functions**
+#### 3. **Passing Mutable Objects to Functions**
 When you pass a mutable object (like a `GeoDataFrame`) to a function, the function receives a **reference** to the original object. This means that changes made to the object within the function affect the original object outside the function unless you explicitly create a copy of it.
 
-#### Example (Passing a Mutable Object):
+##### Example (Passing a Mutable Object):
 ```python
 def modify_list(my_list):
     my_list.append(4)  # Modify the list in place
@@ -77,10 +78,10 @@ print(lst)  # Output: [1, 2, 3, 4]
 ```
 Here, `lst` is modified within the `modify_list` function because the list is mutable, and the function modifies the original object.
 
-### 4. **Creating Copies to Prevent Unintended Changes**
+#### 4. **Creating Copies to Prevent Unintended Changes**
 If you don’t want changes to propagate to the original object, you need to create a **copy**. For mutable objects like `DataFrame` or `GeoDataFrame`, you can use `.copy()` to create a shallow copy.
 
-#### Example (Using `copy()`):
+##### Example (Using `copy()`):
 ```python
 import pandas as pd
 
@@ -106,11 +107,11 @@ print(df_copy)  # The copy is changed
 
 Without `.copy()`, both `df` and `df_copy` would point to the same object, and changes in one would affect the other.
 
-### 5. **Deep Copy vs. Shallow Copy**
+#### 5. **Deep Copy vs. Shallow Copy**
 - **Shallow copy** (`.copy()`): Creates a new object, but elements inside the object still reference the same objects. In case of complex data structures, like a `list` of `lists`, inner objects are not copied.
 - **Deep copy** (`copy.deepcopy()`): Creates a completely new, independent copy of the entire structure, including any nested objects.
 
-#### Example (Shallow Copy):
+##### Example (Shallow Copy):
 ```python
 import copy
 
@@ -127,7 +128,7 @@ To avoid this, you can use a **deep copy**:
 b = copy.deepcopy(a)
 ```
 
-### 6. **GeoDataFrame Example (Copy vs. Reference)**
+#### 6. **GeoDataFrame Example (Copy vs. Reference)**
 Consider the following GeoDataFrame example, where the original data is modified inside the function because of passing by reference:
 
 ```python
@@ -151,14 +152,14 @@ def modify_gdf(gdf):
     return gdf
 ```
 
-### Key Takeaways:
+#### Key Takeaways:
 - **Mutable objects** (like `GeoDataFrame`, `DataFrame`, lists, etc.) are passed by reference, so changes inside a function affect the original object.
 - To prevent modifying the original object, **make a copy** (`.copy()`).
 - Immutable objects (like integers, strings) are passed by value, so they don't affect the original variable.
 
 By keeping these behaviors in mind, you can control how your functions interact with mutable data and prevent unwanted side effects!
 
-## Question 2
+### Question 2
 - why the last line `gdf_update = gdf_update[gdf_update['area_m2'] >= 100]` only change gdf_update but not gdf since you mentioned:
 - In Python, when you assign a variable to a mutable object (such as a list, dict, or DataFrame), the variable doesn't hold the actual object itself, but rather a reference to the object.
 ```python
@@ -190,14 +191,14 @@ print(interval_stats)
 
 gdf_update = gdf_update[gdf_update['area_m2'] >= 100]
 ```
-## Answer 2
+### Answer 2
 Great question! Let's dive into why this line only changes `gdf_update` and not the original `gdf`:
 
 ```python
 gdf_update = gdf_update[gdf_update['area_m2'] >= 100]
 ```
 
-### Key Concept: Variable Assignment Creates a New Reference
+#### Key Concept: Variable Assignment Creates a New Reference
 
 When you execute this line of code:
 
@@ -232,18 +233,17 @@ In summary:
   gdf = gdf[gdf['area_m2'] >= 100]
   ```
 
-### Why Doesn’t `gdf` Change Automatically?
+#### Why Doesn’t `gdf` Change Automatically?
 Because Python doesn’t automatically link a new assignment (like `gdf_update = ...`) to other variables that previously referred to the same object. After reassigning `gdf_update`, only `gdf_update` refers to the filtered DataFrame, while `gdf` remains as it was.
 
 This distinction allows you to freely modify subsets of your data (as `gdf_update`) without impacting the original data (in `gdf`).
-
-# steps to set up a system for processing multiple GeoJSON files using two separate Python files:
-## 1. **Create `main_process.py`**
+## steps to set up a system for processing multiple GeoJSON files using two separate Python files:
+### 1. **Create `main_process.py`**
    - **Purpose**: Contains the core logic to process a single GeoJSON file.
    - **Function**: Define a function (e.g., `process_geojson(input_file, output_file)`) that takes the input GeoJSON file path and the output TSV file path as parameters.
    - **Content**: Include all necessary imports and the processing logic for reading the GeoJSON file, performing calculations, and saving the results as a TSV file.
 
-## Example Structure of `main_process.py`
+### Example Structure of `main_process.py`
 ```python
 import geopandas as gpd
 
@@ -261,12 +261,12 @@ if __name__ == "__main__":
     process_geojson('example.geojson', 'output.tsv')
 ```
 
-## 2. **Create `batch_processor.py`**
+### 2. **Create `batch_processor.py`**
    - **Purpose**: Loops through all the GeoJSON files in a specified directory and calls the processing function from `main_process.py` for each file.
    - **Directory Setup**: Define input and output directories for the GeoJSON and processed files.
    - **File Loop**: Use `os.listdir()` to iterate through the files in the input directory, check for `.geojson` extensions, and call the processing function.
 
-## Example Structure of `batch_processor.py`
+### Example Structure of `batch_processor.py`
 ```python
 import os
 from main_process import process_geojson  # Import the processing function
@@ -291,7 +291,7 @@ for file_name in os.listdir(input_dir):
         print(f"Finished processing: {input_file}")
 ```
 
-## Summary Steps
+### Summary Steps
 1. **Define processing logic in `main_process.py`**:
    - Write a function to process a single GeoJSON file.
    - Include the necessary logic to handle the GeoDataFrame and save it as a TSV file.
@@ -305,3 +305,19 @@ for file_name in os.listdir(input_dir):
    - This script will process all GeoJSON files in the specified directory and save the results in the output directory. 
 
 By organizing your code in this way, you can maintain a clean separation of concerns while making it easy to process multiple files efficiently.
+
+# shpaely
+## geometry.coords
+The `geometry.coords` attribute provides direct access to the coordinate sequence of a Shapely geometry, such as a `LineString` or `Point`. It returns the actual points (as a list of `(x, y)` tuples) that define the geometry's shape.
+
+For example:
+- **`Point`**: The coordinates sequence is a single point (e.g., `[(x, y)]`).
+- **`LineString`**: The sequence contains all points in the line path, giving the full set of points that the line passes through.
+- **`Polygon`**: `geometry.coords` doesn’t directly apply to a `Polygon` because a polygon has boundaries with distinct exterior and possibly interior (holes) rings. To access the polygon’s coordinates, you’d typically use `geometry.exterior.coords` for the outer boundary and `geometry.interiors` for any inner holes.
+- **`MultiPolygon`**: Each polygon within a `MultiPolygon` must be accessed individually, as it doesn’t directly support `coords`. You’d use `.geoms` to get each individual polygon, and then use `polygon.exterior.coords` on each of them.
+
+In short, `geometry.coords` is used to get all points for simpler geometries, but for polygons, it’s often necessary to use `exterior.coords` or work with each part individually in multi-part geometries.
+## geometry.geoms
+- In Shapely, a MultiPolygon is accessed via its `.geoms` attribute, which provides an iterable of the individual Polygon components. 
+- `geometry` -> `goemetry.geoms`
+- reference: [shapely Geometry](https://shapely.readthedocs.io/en/2.0.3/geometry.html)

@@ -5,8 +5,7 @@
 
 - [82154 STC-VDT Provide roads with road_level-7 in the polygon PU73118 osm_offline_parser -locli](#82154-stc-vdt-provide-roads-with-road_level-7-in-the-polygon-pu73118-osm_offline_parser-locli)
 
-- [81651 Create Africa PU rule](#81651-create-africa-pu-rule)
-    - [Nigeria](#nigeria-81651) 
+- [81651 Create Africa PU rule for Nigeria](#81651-create-africa-pu-rule-for-nigeria)
 
 - [81068 Africa 14 countries GIS landusage](#81068-africa-14-countries-gis-landusage)
   - [TZ (Tanzania)](#tz-tanzania)
@@ -14,7 +13,7 @@
     - [PU_Building_TZ](#pu_building_tanzania_81068)
   - [UG_Uganda_81068](#ug_uganda_81068)
     - [NT2_GEO_POLYGON_UG](#nt2_geo_polygon_ug_81068)
-    - [PU_Building_UG](#pu_building_ug_81068)
+  - [NG_Nigeria_81068](#ng_nigeria_81068)
   - [PU_building for 12 countries](#pu_building-for-12-countries)
     - [1. UG (Uganda) 2. KE (Kenya) 3. ZM (Zambia) 4. CD (Democratic Republic of Congo) 5. CG (Republic of Congo) 6. GA (Gabon) 7. MG (Madagascar) 8. MW (Malawi) 9. NE (Niger) 10. RW (Rwanda) 11. SC (Seychelles and dependencies) 12. TD (Chad)](#1-ug-uganda-2-ke-kenya-3-zm-zambia-4-cd-democratic-republic-of-congo-5-cg-republic-of-congo-6-ga-gabon-7-mg-madagascar-8-mw-malawi-9-ne-niger-10-rw-rwanda-11-sc-seychelles-and-dependencies-12-td-chad)
 
@@ -70,6 +69,14 @@
       |before|![alt text](./image/82109-2.png)|![alt text](./image/82109.png)|
       |after| ![alt text](./image/82109-3.png)|![alt text](./image/82109-1.png)|
 
+- run `3-2.append_polygon_into_file.py` to append new data
+
+- run `4-validation_pu_rule.py`
+
+|Before|After-ZTE|After-Huawei|
+|-----|-----|-----|
+| ![alt text](./image/82109-before.png)| ![alt text](./image/82109-after-zte.png)| ![alt text](./image/82109-after.png)
+
 # 82139 Telkomsel add Ferry Route into NT2_GEO_POLYGON
 - ferry route width adjust
 ```python
@@ -120,8 +127,7 @@ Indonesia = country_config.get("Indonesia").get("mcc"), country_config.get("Indo
     |------|-----|
     | ![alt text](./image/82154_overview_STC_PU73118_road_level_7.png)|![alt text](./image/82154_zoom_in_stc_pu73118_road_level_7.png)|
 
-# 81651 Create Africa PU rule
-## Nigeria-81651 
+# 81651 Create Africa PU rule for Nigeria 
 1. pin site location in the map with each vendor(Nokia, Hnawei, ZTE) 
     <!-- - ![alt text](./image/81651-0.png) -->
     - <img src="./image/81651-0.png" alt="description" height="500">
@@ -282,14 +288,63 @@ area_interval
     - <img src="./image/81068-6.png" alt="description" height="500">
     - der es-salaam
     - <img src="./image/81068-7.png" alt="description" height="500">
+
 ## UG_Uganda_81068
 ### NT2_GEO_POLYGON_UG_81068
-### PU_building_UG_81068
-- `python batch_processor.py`
-- output
-    |overview|capital city-Kampala|
-    |-----|-----|
-    |![alt text](./image/81068-8.png)|![alt text](./image/81068-9.png)|
+- **1 water, 2 coastline, 7 highway, 11 village**
+
+- `run_osm_offline_parser.py` to run 4 HOFN_TYPE together
+    ```python
+    commands = [
+    ["python", "osm_offline_parser.py", "./data/input/uganda-latest.osm.pbf", "641", "1"],
+    ["python", "osm_offline_parser.py", "./data/input/uganda-latest.osm.pbf", "641", "2"],
+    ["python", "osm_offline_parser.py", "./data/input/uganda-latest.osm.pbf", "641", "7"],
+    ["python", "osm_offline_parser.py", "./data/input/uganda-latest.osm.pbf", "641", "11"]
+    ]
+    ```
+
+- **1 water**
+    1. normal water(lakes, rivers)
+        - area_threshold = 40000(m^2)
+        - delete 43 polygons like this
+            - ![alt text](image.png)
+
+- **2 coastline**
+    1. no real coastline from open street map
+
+    2. water in country boundry seen as coastline
+        - drow limit polygon in [geojson.io](https://geojson.io/#map=7.06/-0.181/32.384)
+            - ![alt text](image-1.png)
+        - save file as `.geojson`
+        - rename as `limit_polygon.geojson`
+        - move to directory `./data/output/Uganda/limit_polygon/custom/`
+        - run pure `-locli` first. Command: `python osm_offline_parser.py ./data/input/uganda-latest.osm.pbf 641 1 -locli`
+        - run with relation id. Command: ` python osm_offline_parser.py ./data/input/uganda-latest.osm.pbf 641 1 -relation 2606941 -locli`
+            - find relation id in [open street map](https://www.openstreetmap.org/relation/2606941#map=7/-0.879/36.283)
+        - output file path: `./data/output/Uganda/water/custom/raw_processed/water_relation_[2606941].tsv`
+        - output file path: `./data/output/Uganda/water/custom/raw_processed/island.tsv`
+            - use `PU_building` as a reference to select islands
+                - ![alt text](image-2.png)
+    
+    3. merge all informations
+        - run `lake-in-country-boundary_lake-boundary-and-island.py`
+ 
+- **7 highway**
+    - all data 
+
+- **11 villege**
+    - all data
+
+- all screenshot
+    | water | coastline | highway | villege |
+    |-----|-----|-----|-----|
+    | ![alt text](image-7.png) | ![alt text](image-3.png) | ![alt text](image-6.png) | ![alt text](image-5.png) |
+
+- merge all hohn_type information
+    - put all files into correct directory
+    - 
+## NG_Nigeria_81068
+### PU_building_nigeria_81068
 
 ## PU_building for 12 countries
 ### 1. UG (Uganda) 2. KE (Kenya) 3. ZM (Zambia) 4. CD (Democratic Republic of Congo) 5. CG (Republic of Congo) 6. GA (Gabon) 7. MG (Madagascar) 8. MW (Malawi) 9. NE (Niger) 10. RW (Rwanda) 11. SC (Seychelles and dependencies) 12. TD (Chad)

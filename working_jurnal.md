@@ -1,6 +1,3 @@
-- [工作紀錄](#工作紀錄)
-    - [20241028](#20241028)
-
 ## 工作紀錄
 ### 8.1.2024
 - 簽署入職文件、介紹環境
@@ -772,7 +769,7 @@ o 切PU #80806 - Split huge traffic Ericsson PUs to v3 servers
 - **#82154** [STC-VDT] create highway.tsv contains roads with road_level-7 in the polygon you provide previously(PU73118).
     - 教luthfi如何使用QGIS一次選擇多段馬路，輸出為geojson，也方便gis後續處理
 
-### weekly report 20241030
+## weekly report 20241030
 - #82109 [Africa-Uganda] count rrc total for 'ZTE' and 'Huawei'
 - #82154 [STC-VDT] create highway.tsv contains roads with road_level-7 in the polygon you provide previously(PU73118).
     - Teach Luthfi how to use QGIS for selecting multiple road segments at once and exporting as GeoJSON, which will facilitate further GIS processing.
@@ -804,8 +801,36 @@ o 切PU #80806 - Split huge traffic Ericsson PUs to v3 servers
 ### 20241101
 - **#82109** [PU_rule for Uganda] split region to create PU_rule
 
+### 20241104
+- **82109** [PU_rule for Uganda] finished and reply ticket
+  - concat new data into indicated file
+  - validation
 
-### TODO
+### 20241105
+- **81068** [Africa 14 countries GIS landusage] 
+  - split Nigeria mass geojson file(20G)
+
+## weekly report 20241106
+- **#82109** [Africa-Uganda] create PU_rule for Huawei & ZTE
+- **82138** + **82139**[Telkomsel] Add 10 island coastline and 2 ferry route to NT2_GEO_POLYGON.
+- **#81068**[Africa] Create 12 countries polygon_based_all_building
+**plan**
+- **81068** [Africa] 
+  - Create polygon_based_all_building for Nigeria
+  - Create NT2_GEO_POLYGON
+
+### 20241106
+- **81068** [Africa 14 countries GIS landusage] 
+  - run program to create `polygon_based_pu_rule` file
+  - finish and replied ticket.
+
+### 20241107
+- fix `osm_offline_parser` program, no multipolygon problem. (utils.py get_geometry_simplify_by_row multipolygon coords issue)
+
+### 20241108
+- **81068** [Africa-Uganda] generated `NT2_GEO_POLYGON` file, waiting for `hofn.py` validation
+
+## TODO list
 - 寫測驗題(已完成3待寫6)
   - 已完成
     - 113/9/10、9/11 RF Introduction(Trainer：Alex Chang) 
