@@ -16,3 +16,11 @@
     - After connecting to the remote server, press `Ctrl + Shift + P` again and search for `Python: Select Interpreter`.
 
 - TODO: 查這個jupyter是怎麼連上server的，port是多少，config是哪個檔案
+
+# vscode-pandoc
+- https://marketplace.visualstudio.com/items?itemName=DougFinke.vscode-pandoc
+- https://github.com/jgm/pandoc/releases/tag/3.5
+1. download `pandoc-3.5-windows-x86_64.msi`
+2. install
+3. press `F1` search `pandoc rendor`, and press document type wanted
+- note that there should not have word file opened in the computer, or will show error

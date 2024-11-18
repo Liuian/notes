@@ -17,7 +17,7 @@
 - `git add .`
 - `git commit -m '<message>'`
 - first push. Check current branch name: `git branch`
-- first push: `git push -u origin master`
+- first push: `git push -u origin [branch name]`
 - `git push`
 
 ## branch

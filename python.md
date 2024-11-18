@@ -1,3 +1,21 @@
+# Table of Contents
+- [Fiona](#fiona)
+- [Python](#python)
+  - [How variables handle mutable objects (like `lists`, `dicts`, and `DataFrames`) in Python](#how-variables-handle-mutable-objects-like-lists-dicts-and-dataframes-in-python)
+    - [Question 1](#question-1)
+    - [Answer 1](#answer-1)
+    - [Question 2](#question-2)
+    - [Answer 2](#answer-2)
+  - [Steps to set up a system for processing multiple GeoJSON files using two separate Python files](#steps-to-set-up-a-system-for-processing-multiple-geojson-files-using-two-separate-python-files)
+- [Shapely](#shapely)
+  - [geometry.coords](#geometrycoords)
+  - [geometry.geoms](#geometrygeoms)
+
+# Fiona
+- Deal with large size geo files
+- Fiona streams simple feature data to and from GIS formats like GeoPackage and Shapefile.
+- [Fiona website](https://fiona.readthedocs.io/en/stable/README.html)
+
 # python
 ## How variables handle mutable objects (like `lists`, `dicts`, and `DataFrames`) in Python
 ### Question 1
