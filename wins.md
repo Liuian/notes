@@ -35,14 +35,19 @@
 - 帳號: `ianliu`
 - password: same as computer login passward
 
-## terminal
-### split windows
-- Right-click on the PowerShell icon in the taskbar and select `split tab`.
+## Windows Terminal 
+- split windows: Right-click on the PowerShell icon in the taskbar and select `split tab`.
     - ![alt text](./image/wins-4.png)
     - ![alt text](./image/wins-3.png)
+- `alt` + `shift` + `↑ / ↓ / ← / →` ：調整窗格大小
+- `alt` + `↑ / ↓ / ← / →` ：移動窗格焦點 （Move focus ）
+- Switch to Disk D: command: `D:`
 
 ## View Current Directory in PowerShell
 - command: `Get-Location`
 
-## Switch to Disk D:
-- command: `D:`
+## winSCP
+### synchronize
+- `comparision criteria` choose `File size`
+- `sychronize options` choose `preview changes`
+- ![alt text](./image/winscp-1.png)
