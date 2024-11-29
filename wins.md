@@ -1,3 +1,6 @@
+## pause automatic update
+- https://aopos.es/pages/windows-10-自动更新彻底关闭
+
 ## search ip
 - `ipconfig`
     - ![alt text](./image/wins-1.png)
@@ -36,12 +39,14 @@
 - password: same as computer login passward
 
 ## Windows Terminal 
+- split windows: `Shift + Alt + +/-`
 - split windows: Right-click on the PowerShell icon in the taskbar and select `split tab`.
     - ![alt text](./image/wins-4.png)
     - ![alt text](./image/wins-3.png)
 - `alt` + `shift` + `↑ / ↓ / ← / →` ：調整窗格大小
 - `alt` + `↑ / ↓ / ← / →` ：移動窗格焦點 （Move focus ）
 - Switch to Disk D: command: `D:`
+
 
 ## View Current Directory in PowerShell
 - command: `Get-Location`

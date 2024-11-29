@@ -36,7 +36,6 @@ $ awk -F'\t' '$6==10 {print}' /opt/covmo/parser/nt/20241121/Hofn/NT2_CELL_POLYGO
 - 印出tsv檔指定內容
     - print all columns name: `head -n 1 [file name].tsv`
     - print indicated column info: `awk -F'\t' '{print $[num of column]}' NT2_GEO_POLYGON.tsv | sort -u`
-        - example output
         ```bash
         1
         11
@@ -45,11 +44,14 @@ $ awk -F'\t' '$6==10 {print}' /opt/covmo/parser/nt/20241121/Hofn/NT2_CELL_POLYGO
         HOFN_TYPE
         ```
     - print indicated column num of rows: `awk -F'\t' '{print $4}' NT2_GEO_POLYGON.tsv | sort | uniq -c`
-        - example output:
         ```bash
            828 1
         130426 11
             69 2
           4128 7
              1 HOFN_TYPE
+        ```
+    - print rows count: `wc -l NT2_GEO_POLYGON.tsv`
+        ```bash
+        1971 NT2_GEO_POLYGON.tsv
         ```

@@ -1,11 +1,15 @@
+# Write Structured Code
+- program flowchart
+- dto
+- dao
+- Domain model
+
 # Table of Contents
 - [Stacking context; Z-index](#stacking-context-z-index)
 - [Reading list](#reading-list)
 - [`jq`檢查geojson檔案是否正確](#jq檢查geojson檔案是否正確)
   - [Installing jq on Windows](#installing-jq-on-windows)
   - [Use jq](#use-jq)
-
-
 
 # Stacking context; Z-index
 - 疊來疊去，堆疊順序(在上還是在下)
