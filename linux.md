@@ -55,3 +55,8 @@ $ awk -F'\t' '$6==10 {print}' /opt/covmo/parser/nt/20241121/Hofn/NT2_CELL_POLYGO
         ```bash
         1971 NT2_GEO_POLYGON.tsv
         ```
+    - word count: `wc`
+        ```bash
+        8  6 46 test.txt
+        // file has 8 lines, 6 words, and 46 bytes
+        ```

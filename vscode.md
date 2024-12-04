@@ -1,3 +1,10 @@
+# short key
+- 從某一位置一次選取多行: `Alt + Shift`
+
+# VS Code Python Tool Does Multiple Interactive Windows
+- [VS Code Python Tool Does Multiple Interactive Windows](https://visualstudiomagazine.com/articles/2020/08/13/vs-code-python.aspx)
+- Just open the settings page (File > Preferences > Settings), search for `interactive window mode` and change the setting value to `perFile`. Now when you run cells from different files, they will each run on their own separate window."
+
 # remote ssh
 1. install extension in vscode
     - install remote ssh, it will also install other two extension

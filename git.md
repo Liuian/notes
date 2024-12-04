@@ -25,3 +25,4 @@
 - rename current branch locally: `git branch -M pu_building`
 - delete old branch: `git push origin --delete master`
 - verify everthing: `git branch -a`
+
