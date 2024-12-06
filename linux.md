@@ -22,12 +22,9 @@ $ awk -F'\t' '$6==10 {print}' /opt/covmo/parser/nt/20241121/Hofn/NT2_CELL_POLYGO
 805
 ```
 
-- 查詢正在跑的程式: `htop`
-
-- 查詢當前檔案夾位置: `pwd` (print working directory)
-
+- `htop`: 查詢正在跑的程式
+- `pwd` (print working directory): 查詢當前檔案夾位置
 - 切分大檔案: `split -b 6G large_file.geojson small_part_`
-
 - 停止指令後release memory:
     1. **List Background Jobs**: `jobs`
     2. **Bring the Process to Foreground**: `fg %1`  # replace 1 with the job number from the jobs list
@@ -60,3 +57,18 @@ $ awk -F'\t' '$6==10 {print}' /opt/covmo/parser/nt/20241121/Hofn/NT2_CELL_POLYGO
         8  6 46 test.txt
         // file has 8 lines, 6 words, and 46 bytes
         ```
+    - To determine the row number of the line where the value 7 appears in the 5th column:
+        ```bash
+        $awk -F'\t' '$5 == 7 {print NR}' NT2_GEO_POLYGON.tsv
+        211068
+        ```
+        - `-F'\t'`: Specifies that the file is tab-delimited.
+        - `$5 == 7`: Checks if the value in the 5th column is equal to 7.
+        - `{print NR}`: Prints the line number (NR) of the matching row.
+    - To print the entire row for a specific line number:
+        ```bash
+        $sed -n '211068p' NT2_GEO_POLYGON.tsv
+        208010726532962 "Rond-Point de  Toulsiac'h"     LINESTRING (-3.13493 47.62032, -3.13490 47.62040, -3.13491 47.62047, -3.13495 47.62051, -3.13502 47.62056, -3.13512 47.62058, -3.13522 47.62058, -3.13528 47.62056, -3.13535 47.62052, -3.13540 47.62047, -3.13541 47.62041, -3.13541 47.62037, -3.13536 47.62030, -3.13529 47.62026, -3.13525 47.62025, -3.13516 47.62024, -3.13508 47.62024, -3.13501 47.62026, -3.13493 47.62032, -3.13490 47.62022, -3.13485 47.62015, -3.13456 47.61981, -3.13409 47.61933, -3.13218 47.61738, -3.13174 47.61695, -3.13156 47.61677, -3.13073 47.61592, -3.12922 47.61437, -3.12875 47.61392)  7       3
+        ```
+        - `sed -n`: Prevents sed from printing all lines.
+        - `211068p`: Specifies that only the 211068th line should be printed.
