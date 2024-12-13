@@ -31,3 +31,27 @@
 2. install
 3. press `F1` search `pandoc rendor`, and press document type wanted
 - note that there should not have word file opened in the computer, or will show error
+
+# Jupyter enviromnent
+1. 打开 VS Code 设置： Windows/Linux: `Ctrl + ,`
+2. 搜索 `Jupyter Command Line Arguments`
+3. click `edit in settings.json`
+    - ![alt text](./image/jupyter-4.png)
+4. add arguments - `"--port=8886"`
+    ```json
+    {
+        "python.defaultInterpreterPath": "/home/covmo/miniconda3/envs/py36_gis/bin/python",
+        "jupyter.jupyterCommandLineArguments": [    
+            "--port=8886"
+        ],
+        "jupyter.allowUnauthorizedRemoteConnection": true
+    }
+    ```
+5. search current jupyter notebook list
+    ```bash
+    $ jupyter notebook list
+    Currently running servers:
+    http://192.168.1.128:9876/ :: /home/covmo/jupyter_data
+    http://192.168.1.128:8886/ :: /home/covmo
+    http://192.168.1.128:8888/ :: /data/tmp/sheldon/dem/salt/mapbox
+    ```
