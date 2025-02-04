@@ -38,6 +38,19 @@
 - 帳號: `ianliu`
 - password: same as computer login passward
 
+## Microsoft-Windows-Subsystem-Linux 連到遠端server
+1. `this pc` -> `map network drive`
+    - ![alt text](./image/wins-linux-server-0.png)
+    - ![alt text](./image/wins-linux-server-1.png)
+    - ![alt text](./image/wins-linux-server-2.png)
+2. in wins powershell: 
+    - `wsl`
+    - `sudo mkdir -p /mnt/z`
+    - `sudo mount -t drvfs Z: /mnt/z`
+    - `cd /mnt/z`
+    - ![alt text](./image/wins-linux-server-3.png)
+
+
 ## Windows Terminal 
 - split windows: `Shift + Alt + +/-`
 - split windows: Right-click on the PowerShell icon in the taskbar and select `split tab`.
