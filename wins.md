@@ -50,7 +50,18 @@
     - `cd /mnt/z`
     - ![alt text](./image/wins-linux-server-3.png)
 
-
+- **error**
+    - It looks like /mnt/z is mounted, but it’s empty when you run ls. WSL didn't properly mount Z: from Windows – A configuration issue.
+    - ```bash
+      ianliu@IAN-M710T:/mnt/z$ ls
+      (print nothing)
+      ```
+    - Manually Mount Z: Again
+        - Run:    
+        - `sudo umount /mnt/z`
+        - `sudo mount -t drvfs Z: /mnt/z`
+        - Then check:
+        - `ls /mnt/z`
 ## Windows Terminal 
 - split windows: `Shift + Alt + +/-`
 - split windows: Right-click on the PowerShell icon in the taskbar and select `split tab`.

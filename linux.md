@@ -1,25 +1,34 @@
 # linux
 ## 指令
-```
+```bash
 ssh app03
 exit
 ```
-```
+```bash
 $ ll /opt/covmo/parser/hofn/NT2_GEO_POLYGON.tsv
 -rw-r--r-- 1 covmo covmo 22280422 Nov 21 09:01 /data/covmo_config/gis_information/NT2_GEO_POLYGON.tsv
 ```
-```
+```bash
 $ wc -l /data/covmo_config/gis_information/NT2_GEO_POLYGON.tsv
 18679 /data/covmo_config/gis_information/NT2_GEO_POLYGON.tsv
 ```
-```
+```bash
 $ head -2 /opt/covmo/parser/nt/20241121/Hofn/NT2_CELL_POLYGON_LTE.tsv
 PU_ID   ENODEB_ID       CELL_ID POLYGON_STR     POLYGON_ID      HOFN_TYPE       POS_TYPE        POS_INDOOR_TYPE DIST_MIN        DIST_MA        X       ROAD_LEVEL
 92037   70024   32              510010131304854 1       5       0       0       0       0
 ```
-```
+```bash
 $ awk -F'\t' '$6==10 {print}' /opt/covmo/parser/nt/20241121/Hofn/NT2_CELL_POLYGON_LTE.tsv | wc -l
 805
+```
+```bash
+ianliu@IAN-M710T:/mnt/z$ awk -F'\t' '{print $4, $5}' ./VIL/20250205/highway.tsv  | uniq -c
+      1 HOFN_TYPE ROAD_LEVEL
+  29336 7 4
+ 154999 7 5
+  16328 7 3
+   8190 7 2
+    240 7 1
 ```
 
 - `htop`: 查詢正在跑的程式
@@ -33,13 +42,13 @@ $ awk -F'\t' '$6==10 {print}' /opt/covmo/parser/nt/20241121/Hofn/NT2_CELL_POLYGO
 - 印出tsv檔指定內容
     - print all columns name: `head -n 1 [file name].tsv`
     - print indicated column info: `awk -F'\t' '{print $[num of column]}' NT2_GEO_POLYGON.tsv | sort -u`
-        ```bash
-        1
-        11
-        2
-        7
-        HOFN_TYPE
-        ```
+        - ```bash
+          1
+          11
+          2
+          7
+          HOFN_TYPE
+          ```
     - print indicated column num of rows: `awk -F'\t' '{print $4}' NT2_GEO_POLYGON.tsv | sort | uniq -c`
         ```bash
            828 1
