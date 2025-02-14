@@ -4,7 +4,7 @@
 - list packages in env
     - `conda list`
 - Install package:
-    - `Conda install`
+    - `conda install`
     - `pip install`
     - 最好首先使用conda install
 - Installation Channel
