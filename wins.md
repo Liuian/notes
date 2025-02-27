@@ -62,6 +62,28 @@
         - `sudo mount -t drvfs Z: /mnt/z`
         - Then check:
         - `ls /mnt/z`
+
+- **error** 
+    ```bash
+    > wsl
+    wsl: Unknown key 'automount.enabled' in C:\Users\ianliu\.wslconfig:2
+    wsl: Unknown key 'automount.root' in C:\Users\ianliu\.wslconfig:3
+    wsl: Unknown key 'automount.options' in C:\Users\ianliu\.wslconfig:4
+    Catastrophic failure
+    Error code: Wsl/Service/E_UNEXPECTED
+    ```
+    - DO
+        1. $ `notepad $env:USERPROFILE\.wslconfig`
+        2. fill in this 
+            ```txt
+            [wsl2]
+            memory=8GB
+            processors=4
+            swap=0
+            ```
+        3. $ `wsl --shutdown`
+        4. $ `wsl`
+
 ## Windows Terminal 
 - split windows: `Shift + Alt + +/-`
 - split windows: Right-click on the PowerShell icon in the taskbar and select `split tab`.
