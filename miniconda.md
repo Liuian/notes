@@ -1,6 +1,8 @@
 -  create new environment
     - `conda create -n {env name} python={version}`
     - ex: `conda create -n py3.8 python=3.8`
+- list all envs
+    - `conda env list`
 - list packages in env
     - `conda list`
 - Install package:
