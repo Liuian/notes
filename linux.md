@@ -81,3 +81,29 @@ ianliu@IAN-M710T:/mnt/z$ awk -F'\t' '{print $4, $5}' ./VIL/20250205/highway.tsv 
         ```
         - `sed -n`: Prevents sed from printing all lines.
         - `211068p`: Specifies that only the 211068th line should be printed.
+
+## 利用雜湊值比對兩個檔案是否相同
+- 計算雜湊值
+```bash
+ianliu@IAN-M710T:/mnt/z/Airtel$ sha256sum ./20240327/north/NT2_GEO_POLYGON.tsv tmp_filtered_20250411_windows.tsv
+f9b97d09aff82d5118fb3d1d3413ea6bec7eee4560a5499217581a9dc79b9a08  ./20240327/north/NT2_GEO_POLYGON.tsv
+f9b97d09aff82d5118fb3d1d3413ea6bec7eee4560a5499217581a9dc79b9a08  tmp_filtered_20250411_windows.tsv
+```
+
+- filter檔案產出新檔案
+```bash
+ianliu@IAN-M710T:/mnt/z/Airtel$ awk -F'\t' 'NR==1 || $4 != 3' ./20250411/north/NT2_GEO_POLYGON.tsv > tmp_filtered_20250411.tsv
+```
+
+- 將unix類型檔案改為windows類型檔案
+```bash
+ianliu@IAN-M710T:/mnt/z/Airtel$ sed 's/$/\r/' tmp_filtered_20250411.tsv > tmp_filtered_20250411_windows.tsv
+```
+
+- 查看檔案類型
+```bash
+ianliu@IAN-M710T:/mnt/z/Airtel$ file tmp_filtered_20250411.tsv
+tmp_filtered_20250411.tsv: ASCII text, with very long lines (10127)
+ianliu@IAN-M710T:/mnt/z/Airtel$ file ./20240327/north/NT2_GEO_POLYGON.tsv
+./20240327/north/NT2_GEO_POLYGON.tsv: ASCII text, with very long lines (10127), with CRLF line terminators
+```
